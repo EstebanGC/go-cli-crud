@@ -21,6 +21,7 @@ func main() {
 	var tasks []task.Task
 
 	info, err := file.Stat()
+
 	if err != nil {
 		panic(err)
 	}
@@ -40,5 +41,15 @@ func main() {
 		tasks = []task.Task{}
 	}
 
-	fmt.Println(tasks)
+	if len(os.Args) < 2 {
+		printUsage()
+	}
+
+	switch os.Args[1] {
+	case "list":
+		task.ListTasks(tasks)
+	}
+}
+func printUsage() {
+	fmt.Println("Uso: go-cli-crud [list|add|complete|delete]")
 }
